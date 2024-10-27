@@ -2,7 +2,7 @@ import AuthWrapper from '@/components/partials/elements/auth/AuthWrapper';
 import ForgetPassword from '@/components/partials/elements/auth/ForgoetPassword';
 import InputField from '@/components/partials/elements/formFields/InputField';
 import FormSubmitButton from '@/components/partials/elements/FormSubmitButton';
-import ScreenContainer from '@/components/partials/elements/ScreenContainer';
+import BaseLayout from '@/components/partials/layouts/BaseLayout';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
@@ -17,9 +17,9 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScreenContainer>
+    <BaseLayout>
       <AuthWrapper headerTitle='Login'>
-        <View style={{ gap: 20 }}>
+        <View style={{ gap: 10 }}>
           <InputField
             placeholder='Email'
             value={email}
@@ -36,10 +36,12 @@ const LoginScreen = () => {
             }
           />
           <ForgetPassword />
-          <FormSubmitButton title='Login' onPress={handleLogin} />
+          <View style={{ paddingTop: 20 }}>
+            <FormSubmitButton title='Login' onPress={handleLogin} />
+          </View>
         </View>
       </AuthWrapper>
-    </ScreenContainer>
+    </BaseLayout>
   );
 };
 

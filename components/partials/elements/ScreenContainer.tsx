@@ -36,8 +36,6 @@ const ScreenContainer = ({ children }: { children: ReactNode }) => {
             <View style={{ flex: 1, justifyContent: 'center' }}>
               {children}
             </View>
-
-            <Footer />
           </View>
         </ImageBackground>
       </ScrollView>
