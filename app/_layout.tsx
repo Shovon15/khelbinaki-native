@@ -1,4 +1,5 @@
 import Navbar from '@/components/partials/sections/Navbar';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { Stack, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import {
@@ -11,17 +12,14 @@ import {
 
 const screenHeight = Dimensions.get('window').height;
 export default function RootLayout() {
-  const router = useRouter();
-  useEffect(() => {
-    router.push('/login');
-  }),
-    [];
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='index' />
-      <Stack.Screen name='login' />
-      <Stack.Screen name='register' />
-    </Stack>
+    <AuthProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='index' />
+        <Stack.Screen name='login' />
+        <Stack.Screen name='register' />
+      </Stack>
+    </AuthProvider>
   );
 }
 

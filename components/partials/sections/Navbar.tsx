@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer } from 'expo-router/drawer';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import CustomDrawerContent from './Drawer';
+import useAxiosGlobalInstance from '@/utils/hooks/useAxiosGlobalInstance';
+import ImageWrapper from '../elements/ImageWrapper';
+// import useAxiosGlobalInstance from '@/utils/hooks/useAxiosGlobalInstance';
 
 export default function Navbar() {
   const navigation = useNavigation();
-  // const { user } = useAuth()
+  const [logo, setLogo] = useState<string>('');
+  // // const { user } = useAuth()
+  const axiosGlobalInstance = useAxiosGlobalInstance();
+
+  useEffect(() => {
+    const getLogo = async () => {
+      const { data } = await axiosGlobalInstance.get('global/logo');
+      setLogo(data?.image);
+    };
+    getLogo();
+  }, []);
+
+
   return (
-    <View
-      style={{
-        paddingVertical: 20,
-        backgroundColor: 'red',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 10,
-      }}
-    >
-      <Text>Navbar</Text>
+    <View style={styles.container}>
+      <ImageWrapper imgUrl={logo} style={styles.image} />
+
+      {/* <Text>Navbar</Text> */}
     </View>
     // < Drawer
     //     screenOptions={{
@@ -51,7 +58,21 @@ export default function Navbar() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    backgroundColor: 'black',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 10,
+  },
   navbar: {
     backgroundColor: 'red',
+  },
+  image: {
+    width: 100,
+    height: 40,
   },
 });
